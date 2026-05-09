@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sol De Janeiro — Parfums de Luxe</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="announcement-bar">
+  <div class="announcement-track">
+    <span>✦ LIVRAISON GRATUITE DÈS 500 DH ✦ NOUVEAUTÉ : COLLECTION ÉTÉ 2026 ✦ LIVRAISON GRATUITE DÈS 500 DH ✦ NOUVEAUTÉ : COLLECTION ÉTÉ 2026 ✦</span>
+  </div>
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="nav-container">
+    <button class="nav-toggle" id="navToggle">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html" class="active">Accueil</a></li>
+      <li><a href="boutique.html">Boutique</a></li>
+      <li><a href="collections.html">Collections</a></li>
+      <li><a href="about.html">À Propos</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <a href="index.html" class="logo">
+      <span class="logo-main">Sol De Janeiro</span>
+      <span class="logo-sub">Parfums · Maroc</span>
+    </a>
+    <div class="nav-actions">
+      <button class="icon-btn" id="searchToggle"><i class="fas fa-search"></i></button>
+      <button class="icon-btn" id="cartToggle">
+        <i class="fas fa-shopping-bag"></i>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+    </div>
+  </div>
+  <div class="search-bar" id="searchBar">
+    <div class="search-inner">
+      <input type="text" placeholder="Rechercher un parfum…" id="searchInput"/>
+      <button onclick="closeSearch()"><i class="fas fa-times"></i></button>
+    </div>
+  </div>
+</nav>
+
+<!-- CART DRAWER -->
+<div class="cart-overlay" id="cartOverlay"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-header">
+    <h3>Mon Panier</h3>
+    <button onclick="closeCart()"><i class="fas fa-times"></i></button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <div class="cart-empty">
+      <i class="fas fa-shopping-bag"></i>
+      <p>Votre panier est vide</p>
+    </div>
+  </div>
+  <div class="cart-footer" id="cartFooter" style="display:none">
+    <div class="cart-total">
+      <span>Total</span>
+      <span id="cartTotal">0 DH</span>
+    </div>
+    <a href="panier.html" class="btn btn-primary" style="width:100%;text-align:center">Voir le panier</a>
+  </div>
+</div>
+
+<!-- HERO AVEC VIDEO -->
+<section class="hero">
+  <div class="hero-bg">
+
+    <!-- ✅ VIDÉO EN ARRIÈRE PLAN -->
+    <video
+      class="hero-video"
+      autoplay
+      muted
+      loop
+      playsinline
+      poster="https://images.pexels.com/photos/965989/pexels-photo-965989.jpeg?auto=compress&cs=tinysrgb&w=1800">
+      <source src="https://www.pexels.com/fr-fr/download/video/19435649/" type="video/mp4"/>
+    </video>
+
+    <div class="hero-overlay"></div>
+  </div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Nouvelle Collection 2026</p>
+    <h1 class="hero-title">L'Essence<br/><em>du Soleil</em></h1>
+    <p class="hero-desc">Des parfums nés sous le ciel marocain,<br/>où l'orient rencontre la lumière.</p>
+    <div class="hero-actions">
+      <a href="boutique.html" class="btn btn-primary">Découvrir la boutique</a>
+      <a href="collections.html" class="btn btn-ghost">Nos Collections</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span>Défiler</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-strip">
+  <div class="marquee-track">
+    <span>Eau de Parfum</span><span>✦</span>
+    <span>Oud & Ambre</span><span>✦</span>
+    <span>Rose du Maroc</span><span>✦</span>
+    <span>Collection Exclusive</span><span>✦</span>
+    <span>Artisan Marocain</span><span>✦</span>
+    <span>Eau de Parfum</span><span>✦</span>
+    <span>Oud & Ambre</span><span>✦</span>
+    <span>Rose du Maroc</span><span>✦</span>
+    <span>Collection Exclusive</span><span>✦</span>
+    <span>Artisan Marocain</span><span>✦</span>
+  </div>
+</div>
+
+<!-- FEATURED PRODUCTS -->
+<section class="section featured">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-eyebrow">Bestsellers</p>
+      <h2 class="section-title">Nos Parfums Signature</h2>
+    </div>
+    <div class="products-grid" id="featuredGrid"></div>
+    <div class="section-footer">
+      <a href="boutique.html" class="btn btn-outline">Voir toute la boutique</a>
+    </div>
+  </div>
+</section>
+
+<!-- COLLECTIONS BANNER -->
+<section class="collections-banner">
+  <div class="coll-item" onclick="goToCollection('Oud Royal')" style="cursor:pointer">
+    <img src="https://images.pexels.com/photos/1961792/pexels-photo-1961792.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Oud Royal"/>
+    <div class="coll-overlay">
+      <p class="coll-sub">Collection</p>
+      <h3>Oud Royal</h3>
+      <a class="btn-coll">Explorer →</a>
+    </div>
+  </div>
+  <div class="coll-item coll-tall" onclick="goToCollection('Fleurs')" style="cursor:pointer">
+    <img src="https://images.pexels.com/photos/965989/pexels-photo-965989.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Fleurs d'Orient"/>
+    <div class="coll-overlay">
+      <p class="coll-sub">Collection</p>
+      <h3>Fleurs d'Orient</h3>
+      <a class="btn-coll">Explorer →</a>
+    </div>
+  </div>
+  <div class="coll-item" onclick="goToCollection('Ambre')" style="cursor:pointer">
+    <img src="https://images.pexels.com/photos/755992/pexels-photo-755992.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Ambre Solaire"/>
+    <div class="coll-overlay">
+      <p class="coll-sub">Collection</p>
+      <h3>Ambre Solaire</h3>
+      <a class="btn-coll">Explorer →</a>
+    </div>
+  </div>
+</section>
+
+<!-- PROMO -->
+<section class="promo-section">
+  <div class="promo-inner">
+    <div class="promo-text">
+      <p class="promo-tag">Offre Limitée</p>
+      <h2>−20% sur la Collection Été</h2>
+      <p>Profitez de notre offre exclusive jusqu'au 31 mai 2026. Des senteurs estivales qui capturent l'essence du Maroc.</p>
+      <a href="boutique.html" class="btn btn-primary">Profiter de l'offre</a>
+    </div>
+    <div class="promo-image">
+      <img src="https://images.pexels.com/photos/3059609/pexels-photo-3059609.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Promo"/>
+    </div>
+  </div>
+</section>
+
+<!-- NOUVEAUTÉS -->
+<section class="section new-arrivals">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-eyebrow">Vient d'arriver</p>
+      <h2 class="section-title">Nouveautés 2026</h2>
+    </div>
+    <div class="products-grid" id="newGrid"></div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="why-us">
+  <div class="container">
+    <div class="why-grid">
+      <div class="why-item">
+        <div class="why-icon"><i class="fas fa-leaf"></i></div>
+        <h4>Ingrédients Naturels</h4>
+        <p>Essences 100% naturelles, soigneusement sélectionnées au Maroc.</p>
+      </div>
+      <div class="why-item">
+        <div class="why-icon"><i class="fas fa-flask"></i></div>
+        <h4>Artisanat Marocain</h4>
+        <p>Fabriqués à la main par nos maîtres parfumeurs de Fès et Marrakech.</p>
+      </div>
+      <div class="why-item">
+        <div class="why-icon"><i class="fas fa-box"></i></div>
+        <h4>Livraison Premium</h4>
+        <p>Emballage luxueux et livraison soignée dans tout le Maroc sous 48h.</p>
+      </div>
+      <div class="why-item">
+        <div class="why-icon"><i class="fas fa-undo"></i></div>
+        <h4>Retour 30 Jours</h4>
+        <p>Satisfait ou remboursé. Retour gratuit sous 30 jours, sans condition.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section testimonials">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-eyebrow">Avis Clients</p>
+      <h2 class="section-title">Ce qu'ils disent</h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p>"Un parfum envoûtant qui transporte immédiatement. L'Oud Royal est devenu mon incontournable."</p>
+        <div class="testi-author">
+          <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Fatima"/>
+          <div><strong>Fatima B.</strong><span>Casablanca</span></div>
+        </div>
+      </div>
+      <div class="testi-card testi-featured">
+        <div class="testi-stars">★★★★★</div>
+        <p>"La qualité est exceptionnelle, l'emballage est magnifique. Sol De Janeiro redéfinit le luxe marocain."</p>
+        <div class="testi-author">
+          <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Youssef"/>
+          <div><strong>Youssef M.</strong><span>Rabat</span></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p>"J'ai offert Fleurs d'Orient à ma mère et elle a adoré. Le service client est irréprochable."</p>
+        <div class="testi-author">
+          <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Nadia"/>
+          <div><strong>Nadia K.</strong><span>Marrakech</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter">
+  <div class="newsletter-inner">
+    <p class="section-eyebrow">Restez Connecté</p>
+    <h2>Rejoignez Notre Univers</h2>
+    <p>Recevez nos nouveautés et offres exclusives en avant-première.</p>
+    <form class="newsletter-form" onsubmit="submitNewsletter(event)">
+      <input type="email" placeholder="Votre adresse email" required/>
+      <button type="submit" class="btn btn-primary">S'abonner</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="footer-logo">Sol De Janeiro</div>
+      <p>Des parfums d'exception, nés du savoir-faire marocain.</p>
+      <div class="social-links">
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-tiktok"></i></a>
+        <a href="#"><i class="fab fa-pinterest-p"></i></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h5>Navigation</h5>
+      <ul>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="boutique.html">Boutique</a></li>
+        <li><a href="collections.html">Collections</a></li>
+        <li><a href="about.html">À Propos</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Informations</h5>
+      <ul>
+        <li><a href="#">Livraison & Retours</a></li>
+        <li><a href="#">Politique de confidentialité</a></li>
+        <li><a href="#">Conditions générales</a></li>
+        <li><a href="#">FAQ</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Contact</h5>
+      <ul>
+        <li><i class="fas fa-map-marker-alt"></i> Fès, Maroc</li>
+        <li><i class="fas fa-phone"></i> +212 5 35 00 00 00</li>
+        <li><i class="fas fa-envelope"></i> contact@soldejaneiro.ma</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Sol De Janeiro. Tous droits réservés.</p>
+    <p>Fait avec ♥ au Maroc</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+<script>
+function goToCollection(cat) {
+  window.location.href = `collections.html?cat=${cat}`;
+}
+</script>
+
+</body>
+</html>

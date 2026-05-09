@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Boutique — Sol De Janeiro</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<style>
+.shop-hero {
+  height: 55vh;
+  min-height: 400px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin-top: 36px;
+}
+.shop-hero img {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transform: scale(1.04);
+  animation: heroZoom 8s ease-out forwards;
+}
+.shop-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(10,10,10,0.6), rgba(10,10,10,0.5));
+}
+.shop-hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: var(--white);
+}
+.shop-hero-content h1 {
+  font-family: var(--font-display);
+  font-size: clamp(52px, 7vw, 96px);
+  font-weight: 300;
+  line-height: 1;
+  margin-bottom: 16px;
+}
+.shop-hero-content p {
+  font-size: 12px;
+  letter-spacing: 3px;
+  color: rgba(255,255,255,0.55);
+  text-transform: uppercase;
+}
+
+/* FILTER BAR */
+.filter-bar {
+  background: var(--white);
+  padding: 0 40px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid rgba(0,0,0,0.07);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.filter-cats {
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+}
+.filter-btn {
+  padding: 18px 26px;
+  font-size: 10px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--gray);
+  cursor: pointer;
+  font-family: var(--font-body);
+  white-space: nowrap;
+  transition: all 0.3s;
+  margin-bottom: -1px;
+}
+.filter-btn:hover { color: var(--dark); }
+.filter-btn.active {
+  color: var(--gold-dark);
+  border-bottom-color: var(--gold);
+}
+.sort-select {
+  padding: 10px 16px;
+  border: 1px solid rgba(0,0,0,0.1);
+  background: transparent;
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: var(--dark);
+  cursor: pointer;
+  outline: none;
+  min-width: 160px;
+}
+
+/* PRODUCT COUNT */
+.products-count {
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: var(--gray);
+  padding: 32px 0 0;
+  margin-bottom: -16px;
+}
+
+/* EMPTY STATE */
+.empty-state {
+  text-align: center;
+  padding: 80px 20px;
+  color: var(--gray);
+}
+.empty-state i { font-size: 48px; margin-bottom: 20px; display: block; color: rgba(201,169,110,0.3); }
+.empty-state p { font-size: 14px; }
+
+@media (max-width: 768px) {
+  .filter-bar { padding: 0 20px; flex-direction: column; align-items: flex-start; gap: 0; }
+  .sort-select { margin: 12px 0; }
+}
+</style>
+</head>
+<body>
+
+<div class="announcement-bar">
+  <div class="announcement-track">
+    <span>✦ LIVRAISON GRATUITE DÈS 500 DH ✦ NOUVEAUTÉ : COLLECTION ÉTÉ 2026 ✦ LIVRAISON GRATUITE DÈS 500 DH ✦</span>
+  </div>
+</div>
+
+<nav class="navbar scrolled" id="navbar">
+  <div class="nav-container">
+    <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="boutique.html" class="active">Boutique</a></li>
+      <li><a href="collections.html">Collections</a></li>
+      <li><a href="about.html">À Propos</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <a href="index.html" class="logo">
+      <span class="logo-main">Sol De Janeiro</span>
+      <span class="logo-sub">Parfums · Maroc</span>
+    </a>
+    <div class="nav-actions">
+      <button class="icon-btn" id="searchToggle"><i class="fas fa-search"></i></button>
+      <button class="icon-btn" id="cartToggle">
+        <i class="fas fa-shopping-bag"></i>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+    </div>
+  </div>
+  <div class="search-bar" id="searchBar">
+    <div class="search-inner">
+      <input type="text" placeholder="Rechercher un parfum…" id="searchInput"/>
+      <button onclick="closeSearch()"><i class="fas fa-times"></i></button>
+    </div>
+  </div>
+</nav>
+
+<div class="cart-overlay" id="cartOverlay"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-header">
+    <h3>Mon Panier</h3>
+    <button onclick="closeCart()"><i class="fas fa-times"></i></button>
+  </div>
+  <div class="cart-items" id="cartItems"></div>
+  <div class="cart-footer" id="cartFooter" style="display:none">
+    <div class="cart-total"><span>Total</span><span id="cartTotal">0 DH</span></div>
+    <a href="panier.html" class="btn btn-primary" style="width:100%;text-align:center">Voir le panier</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="shop-hero">
+  <img src="https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=1800&q=90" alt="Boutique"/>
+  <div class="shop-hero-overlay"></div>
+  <div class="shop-hero-content">
+    <p class="section-eyebrow" style="margin-bottom:16px">Notre Sélection</p>
+    <h1>La Boutique</h1>
+    <p>Eau de Parfum · Artisanat Marocain · Fès</p>
+  </div>
+</div>
+
+<!-- FILTER BAR -->
+<div class="filter-bar">
+  <div class="filter-cats">
+    <button class="filter-btn active" data-cat="Tous" onclick="filterProducts('Tous')">Tous</button>
+    <button class="filter-btn" data-cat="Oud Royal" onclick="filterProducts('Oud Royal')">Oud Royal</button>
+    <button class="filter-btn" data-cat="Fleurs d'Orient" onclick="filterProducts(&quot;Fleurs d\'Orient&quot;)">Fleurs d'Orient</button>
+    <button class="filter-btn" data-cat="Ambre Solaire" onclick="filterProducts('Ambre Solaire')">Ambre Solaire</button>
+    <button class="filter-btn" data-cat="Bois Précieux" onclick="filterProducts('Bois Précieux')">Bois Précieux</button>
+    <button class="filter-btn" data-cat="Collection Nuit" onclick="filterProducts('Collection Nuit')">Collection Nuit</button>
+  </div>
+  <select class="sort-select" id="sortSelect" onchange="sortProducts(this.value)">
+    <option value="default">Trier par défaut</option>
+    <option value="price-asc">Prix croissant</option>
+    <option value="price-desc">Prix décroissant</option>
+    <option value="new">Nouveautés</option>
+  </select>
+</div>
+
+<!-- PRODUCTS -->
+<section style="padding:48px 0 100px">
+  <div class="container">
+    <p class="products-count" id="productsCount">8 parfums</p>
+    <div class="products-grid" style="margin-top:40px" id="allProductsGrid"></div>
+  </div>
+</section>
+
+<!-- BANNER STRIP -->
+<div style="background:var(--dark);padding:60px 40px;text-align:center">
+  <p class="section-eyebrow">Livraison offerte</p>
+  <h3 style="font-family:var(--font-display);font-size:36px;color:var(--white);font-weight:300;margin-bottom:12px">Toute commande dès <em style="color:var(--gold)">500 DH</em></h3>
+  <p style="color:rgba(255,255,255,0.5);font-size:13px">Livraison en 48h dans tout le Maroc · Emballage cadeau offert</p>
+</div>
+
+<section class="newsletter">
+  <div class="newsletter-inner">
+    <p class="section-eyebrow">Restez Connecté</p>
+    <h2>Rejoignez Notre Univers</h2>
+    <p>Recevez nos nouveautés et offres exclusives en avant-première.</p>
+    <form class="newsletter-form" onsubmit="submitNewsletter(event)">
+      <input type="email" placeholder="Votre adresse email" required/>
+      <button type="submit" class="btn btn-primary">S'abonner</button>
+    </form>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="footer-logo">Sol De Janeiro</div>
+      <p>Des parfums d'exception, nés du savoir-faire marocain.</p>
+      <div class="social-links">
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-tiktok"></i></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h5>Navigation</h5>
+      <ul>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="boutique.html">Boutique</a></li>
+        <li><a href="collections.html">Collections</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Contact</h5>
+      <ul>
+        <li><i class="fas fa-map-marker-alt"></i> Fès, Maroc</li>
+        <li><i class="fas fa-phone"></i> +212 5 35 00 00 00</li>
+        <li><i class="fas fa-envelope"></i> contact@soldejaneiro.ma</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Sol De Janeiro. Tous droits réservés.</p>
+    <p>Fait avec ♥ au Maroc</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+<script>
+// Sort function
+let currentCategory = 'Tous';
+
+function sortProducts(val) {
+  const grid = document.getElementById('allProductsGrid');
+  if (!grid) return;
+  let list = currentCategory === 'Tous'
+    ? [...products]
+    : products.filter(p => p.category === currentCategory);
+
+  if (val === 'price-asc') list.sort((a,b) => a.price - b.price);
+  if (val === 'price-desc') list.sort((a,b) => b.price - a.price);
+  if (val === 'new') list = list.filter(p => p.isNew).concat(list.filter(p => !p.isNew));
+
+  grid.innerHTML = list.map(renderProductCard).join('');
+  document.getElementById('productsCount').textContent = list.length + ' parfum' + (list.length > 1 ? 's' : '');
+  setTimeout(initReveal, 50);
+}
+
+const _origFilter = filterProducts;
+filterProducts = function(cat) {
+  currentCategory = cat;
+  const grid = document.getElementById('allProductsGrid');
+  if (!grid) return;
+  const filtered = cat === 'Tous' ? products : products.filter(p => p.category === cat);
+  grid.innerHTML = filtered.map(renderProductCard).join('');
+  document.getElementById('productsCount').textContent = filtered.length + ' parfum' + (filtered.length > 1 ? 's' : '');
+  setTimeout(initReveal, 50);
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.cat === cat);
+  });
+  document.getElementById('sortSelect').value = 'default';
+}
+</script>
+</body>
+</html> 
