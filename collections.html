@@ -71,7 +71,6 @@
   font-size: clamp(40px, 5vw, 70px);
   font-weight: 300;
 }
-/* MAP SECTION */
 .map-section {
   padding: 100px 0;
   background: var(--dark);
@@ -142,6 +141,7 @@
   padding: 8px 16px;
   border: 1px solid rgba(201,169,110,0.3);
   pointer-events: none;
+  z-index: 10;
 }
 @media (max-width: 900px) {
   .map-inner { grid-template-columns: 1fr; }
@@ -210,7 +210,9 @@
 <!-- COLLECTION 1 — OUD ROYAL -->
 <div id="coll-oud">
   <div class="collection-hero">
-    <img src="https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=1600&q=85" alt="Oud Royal"/>
+    <img
+      src="https://images.pexels.com/photos/1961792/pexels-photo-1961792.jpeg?auto=compress&cs=tinysrgb&w=1600"
+      alt="Oud Royal"/>
     <div class="collection-hero-overlay"></div>
     <div class="collection-hero-content">
       <p>Collection Signature</p>
@@ -230,7 +232,9 @@
 <!-- COLLECTION 2 — FLEURS D'ORIENT -->
 <div id="coll-fleurs" style="background:var(--light)">
   <div class="collection-hero">
-    <img src="https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?w=1600&q=85" alt="Fleurs d'Orient"/>
+    <img
+      src="https://images.pexels.com/photos/965989/pexels-photo-965989.jpeg?auto=compress&cs=tinysrgb&w=1600"
+      alt="Fleurs d'Orient"/>
     <div class="collection-hero-overlay"></div>
     <div class="collection-hero-content">
       <p>Collection Florale</p>
@@ -247,10 +251,12 @@
   </section>
 </div>
 
-<!-- COLLECTION 3 — AMBRE SOLAIRE -->
+<!-- COLLECTION 3 — AMBRE SOLAIRE ✅ NOUVELLE PHOTO -->
 <div id="coll-ambre">
   <div class="collection-hero">
-    <img src="https://images.unsplash.com/photo-1590156562745-5d5541b4f80f?w=1600&q=85" alt="Ambre Solaire"/>
+    <img
+      src="https://images.pexels.com/photos/7796317/pexels-photo-7796317.jpeg?auto=compress&cs=tinysrgb&w=1600"
+      alt="Ambre Solaire"/>
     <div class="collection-hero-overlay"></div>
     <div class="collection-hero-content">
       <p>Collection Dorée</p>
@@ -267,10 +273,12 @@
   </section>
 </div>
 
-<!-- COLLECTION 4 — BOIS PRÉCIEUX -->
+<!-- COLLECTION 4 — BOIS PRÉCIEUX ✅ NOUVELLE PHOTO -->
 <div id="coll-bois" style="background:var(--light)">
   <div class="collection-hero">
-    <img src="https://images.unsplash.com/photo-1547887538-e3a2f32cb1cc?w=1600&q=85" alt="Bois Précieux"/>
+    <img
+      src="https://images.pexels.com/photos/10924515/pexels-photo-10924515.jpeg?auto=compress&cs=tinysrgb&w=1600"
+      alt="Bois Précieux"/>
     <div class="collection-hero-overlay"></div>
     <div class="collection-hero-content">
       <p>Collection Boisée</p>
@@ -287,13 +295,13 @@
   </section>
 </div>
 
-<!-- ═══ CARTE — NOTRE BOUTIQUE À FÈS ═══ -->
+<!-- CARTE — NOTRE BOUTIQUE À FÈS -->
 <section class="map-section">
   <div class="map-inner">
     <div class="map-text">
       <p class="section-eyebrow">Notre Boutique</p>
       <h2>Venez nous<br/><em style="font-style:italic;color:var(--gold-light)">rendre visite</em></h2>
-      <p>Notre boutique flagship est niché au cœur de la médina de Fès, berceau de l'artisanat marocain. Venez découvrir nos parfums en exclusivité et profiter d'une expérience sensorielle unique.</p>
+      <p>Notre boutique flagship est nichée au cœur de la médina de Fès, berceau de l'artisanat marocain. Venez découvrir nos parfums en exclusivité et profiter d'une expérience sensorielle unique.</p>
       <div class="map-details">
         <div class="map-detail-item">
           <i class="fas fa-map-marker-alt"></i>
@@ -314,7 +322,6 @@
       </div>
       <a href="contact.html" class="btn btn-primary">Nous contacter</a>
     </div>
-
     <div class="map-frame">
       <div class="map-pin-label">📍 Sol De Janeiro — Fès</div>
       <iframe
@@ -377,7 +384,6 @@
 
 <script src="script.js"></script>
 <script>
-// Remplir les grilles collections
 document.addEventListener('DOMContentLoaded', () => {
   const byCategory = (cat) => products.filter(p => p.category === cat);
 
@@ -398,7 +404,6 @@ document.addEventListener('DOMContentLoaded', () => {
   setTimeout(initReveal, 100);
 });
 
-// Scroll vers la bonne collection depuis index.html
 const params = new URLSearchParams(window.location.search);
 const target = params.get('cat');
 if (target) {
